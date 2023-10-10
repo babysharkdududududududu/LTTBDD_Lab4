@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Screen1 from "../Screen/Screen1";
 import Screen2 from "../Screen/Screen2";
 import Screen3 from "../Screen/Screen3";
+import Screen4 from "../Screen/Screen4";
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
@@ -22,6 +23,11 @@ const TabNavigation = () => {
         <Tab.Screen
           name="Screen3"
           component={Screen3}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Screen4"
+          component={Screen4}
           options={{ headerShown: false }}
         />
       </Tab.Navigator>

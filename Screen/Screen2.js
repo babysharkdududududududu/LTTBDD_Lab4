@@ -20,8 +20,9 @@ const Screen2 = () => {
 
   // Cap nhat so sao da chon
   const handleSelectedNumStar = (selectedNumStar) => {
-    let rating = "";
     setNumStar(selectedNumStar);
+    let rating = "";
+
     switch (selectedNumStar) {
       case 1:
         rating = "Tệ";
@@ -42,7 +43,6 @@ const Screen2 = () => {
     setRate(rating);
   };
   // Render ngôi sao với màu tùy thuộc vào số sao được chọn
-
   const renderStart = (numberStar) => {
     return (
       <TouchableOpacity onPress={() => handleSelectedNumStar(numberStar)}>
@@ -74,9 +74,6 @@ const Screen2 = () => {
     } catch (error) {
       console.error("Lỗi khi chọn tệp: ", error);
     }
-  };
-  const handleCmt = (cmt) => {
-    setCmt(cmt);
   };
   const submit = () => {
     alert(

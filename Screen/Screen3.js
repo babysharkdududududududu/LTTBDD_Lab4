@@ -11,9 +11,41 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 const Screen3 = () => {
   const [text, setText] = useState("");
+  const [passwordLength, setPasswordLength] = useState(8); // Độ dài mật khẩu mặc định là 8
+  const [includeLowercase, setIncludeLowercase] = useState(true);
+  const [includeUppercase, setIncludeUppercase] = useState(true);
+  const [includeNumbers, setIncludeNumbers] = useState(true);
+  const [includeSpecialChars, setIncludeSpecialChars] = useState(true);
 
   const setPass = () => {
-    setText("Thanh123");
+    // Tạo các chuỗi chứa ký tự dựa trên các điều kiện được chọn
+    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numberChars = "0123456789";
+    const specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+    let validChars = "";
+    if (includeLowercase) {
+      validChars += lowercaseChars;
+    }
+    if (includeUppercase) {
+      validChars += uppercaseChars;
+    }
+    if (includeNumbers) {
+      validChars += numberChars;
+    }
+    if (includeSpecialChars) {
+      validChars += specialChars;
+    }
+
+    // Tạo mật khẩu ngẫu nhiên dựa trên độ dài đã nhập và chuỗi ký tự hợp lệ
+    let newPassword = "";
+    for (let i = 0; i < passwordLength; i++) {
+      const randomIndex = Math.floor(Math.random() * validChars.length);
+      newPassword += validChars[randomIndex];
+    }
+
+    setText(newPassword);
   };
   return (
     <View style={styles.container}>
@@ -36,6 +68,12 @@ const Screen3 = () => {
             <Text style={styles.content}>Password length</Text>
             <TextInput
               style={{ backgroundColor: "white", marginLeft: 20 }}
+              onChangeText={(value) => {
+                const numericValue = parseInt(value, 10); // Chuyển đổi giá trị sang số nguyên
+                if (!isNaN(numericValue)) {
+                  setPasswordLength(numericValue); // Cập nhật passwordLength khi người dùng nhập
+                }
+              }}
             ></TextInput>
           </View>
           <View style={styles.inputRow}>
@@ -105,7 +143,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   content: {
-    // marginBottom: 20,
     fontSize: 13,
     color: "white",
     fontWeight: "bold",
